@@ -37,7 +37,8 @@ class HomePage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state is WeatherSuccessState) {
-            return WeatherSuccess(weatherData: weatherCubit.weatherModel);
+            weatherData =  weatherCubit.weatherModel;
+            return WeatherSuccess(weatherData: weatherData);
           } else if (state is WeatherFailureState) {
             return const Center(
               child: Text('something wrong'),

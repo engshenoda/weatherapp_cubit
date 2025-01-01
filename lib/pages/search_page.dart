@@ -24,7 +24,7 @@ class SearchPage extends StatelessWidget {
             },
             onSubmitted: (data) async {
               cityName = data;
-              weatherCubit.cityName;
+              weatherCubit.getWeather(cityName: cityName!);
               Navigator.pop(context);
             },
             decoration: InputDecoration(
