@@ -14,7 +14,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weatherCubit = BlocProvider.of<WeatherCubit>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,8 +36,7 @@ class HomePage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state is WeatherSuccessState) {
-            weatherData =  weatherCubit.weatherModel;
-            return WeatherSuccess(weatherData: weatherData);
+            return WeatherSuccess(weatherData: state.weatherModel);
           } else if (state is WeatherFailureState) {
             return const Center(
               child: Text('something wrong'),

@@ -18,9 +18,11 @@ class WeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final weatherCubit = BlocProvider.of<WeatherCubit>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+      primarySwatch: weatherCubit.weatherModel == null ?  Colors.blue : weatherCubit.weatherModel!.getThemeColor()  ,
       ),
       home: HomePage(),
     );
