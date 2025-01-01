@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/models/weather_model.dart';
-import 'package:weatherapp/services/weather_service.dart';
 import 'package:weatherapp/weather_cubit/weather_cubit.dart';
 
 // ignore: must_be_immutable
@@ -25,7 +23,6 @@ class SearchPage extends StatelessWidget {
             onSubmitted: (data) async {
               cityName = data;
               weatherCubit.getWeather(cityName: cityName!);
-              Navigator.pop(context);
             },
             decoration: InputDecoration(
               contentPadding:
@@ -33,12 +30,16 @@ class SearchPage extends StatelessWidget {
               label: Text('search'),
               suffixIcon: GestureDetector(
                   onTap: () async {
-                    WeatherService service = WeatherService();
-
-                    WeatherModel? weather =
-                        await service.getWeather(cityName: cityName!);
-
-                    Navigator.pop(context);
+                    if (cityName != null && cityName!.isNotEmpty) {
+                      weatherCubit.getWeather(cityName: cityName!);
+                      Navigator.of(context).pop();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('please enter a city name'),
+                        ),
+                      );
+                    }
                   },
                   child: Icon(Icons.search)),
               border: OutlineInputBorder(),
